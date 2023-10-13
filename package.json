@@ -1,10 +1,8 @@
 {
   "name": "jest-unit-testing",
   "version": "1.0.0",
-  "description": "",
   "main": "module.js",
   "type": "module",
-  
   "scripts": {
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
@@ -15,5 +13,15 @@
   "license": "ISC",
   "dependencies": {
     "jest": "^29.7.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelika930/TDD_asgn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angelika930/TDD_asgn/issues"
+  },
+  "homepage": "https://github.com/angelika930/TDD_asgn#readme",
+  "description": ""
 }
