@@ -37,11 +37,23 @@ import ShareSaleException from './ShareSaleException.js';
 //     const got = mut.stockPortfolio();
 //     expect(got).toBe(expected);
 // });
-test('Test initial shares ------ success' , () => {
+test('Test initial hashmap -------success' , () => {
     const sample = new stockPortfolio();
-    const expected = 0;
-    const got = sample.returnShares();
-    expect(got).toBe(expected);
+    const expected = new Map();
+    const got = sample.hashMap;
+    expect(got).toBeInstanceOf(Map);
+});
+test('Test if stock portfolio is empty -------success' , () => {
+    const sample = new stockPortfolio();
+    const got =  sample.returnPortfolioNum();
+    expect(got).toBe(true);
+});
+test('Test if stock portfolio is not empty -------success' , () => {
+    const sample = new stockPortfolio();
+    sample.hashMap.set('GME', 5);
+    sample.hashMap.set('RBLX', 10);
+    const got =  sample.returnPortfolioNum();
+    expect(got).toBe(false);
 });
 test('Test initial hashmap -------success' , () => {
     const sample = new stockPortfolio();
@@ -53,6 +65,15 @@ test('Test Unique symbols -------- success' , () => {
     const sample = new stockPortfolio();
     sample.hashMap.set('GME', 5);
     sample.hashMap.set('RBLX', 10);
+    const expected = 2;
+    const got = sample.countUniqSymbols();
+    expect(got).toBe(expected);
+});
+test('Test not Unique symbols -------- success' , () => {
+    const sample = new stockPortfolio();
+    sample.hashMap.set('GME', 5);
+    sample.hashMap.set('RBLX', 10);
+    sample.hashMap.set('GME', 10);
     const expected = 2;
     const got = sample.countUniqSymbols();
     expect(got).toBe(expected);
