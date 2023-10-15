@@ -1,6 +1,7 @@
 //import mut from './module.js'; // MUT = Module Under Test
 import mut from './stockPortfolio.js';
 import stockPortfolio from './stockPortfolio';
+import ShareSaleException from './ShareSaleException.js';
 // test('Testing sum -- success', () => {
 //   const expected = 30;
 //   const got = mut.sum(12, 18);
@@ -36,11 +37,17 @@ import stockPortfolio from './stockPortfolio';
 //     const got = mut.stockPortfolio();
 //     expect(got).toBe(expected);
 // });
-test('Test number of shares ------ success' , () => {
+test('Test initial shares ------ success' , () => {
     const sample = new stockPortfolio();
     const expected = 0;
     const got = sample.returnShares();
     expect(got).toBe(expected);
+});
+test('Test initial hashmap -------success' , () => {
+    const sample = new stockPortfolio();
+    const expected = new Map();
+    const got = sample.hashMap;
+    expect(got).toBeInstanceOf(Map);
 });
 test('Test Unique symbols -------- success' , () => {
     const sample = new stockPortfolio();
@@ -66,15 +73,7 @@ test('Test sale function ----- success' , () => {
     const got = sample.hashMap.get('RBLX',);
     expect(got).toBe(expected);
 });
-test('Test sale function (negative sale) ----- success' , () => {
-    const sample = new stockPortfolio();
-    sample.hashMap.set('RBLX', 100);
-    const expected = 0;
-    sample.sale('RBLX', 120);
-    const got = sample.hashMap.get('RBLX',);
-    expect(got).toBe(expected);
-});
-test('Test returnShares ' , () => {
+test('Test returnShares --------- success' , () => {
     const sample = new stockPortfolio();
     sample.hashMap.set('RBLX', 100);
     const expected = 100;
@@ -84,8 +83,8 @@ test('Test returnShares ' , () => {
 });
 test('Test returnShares if symbol does not exist -------- success' , () => {
     const sample = new stockPortfolio();
-    const got = sample.returnSymbolShare('RBLX',);
-    expect(got).toStrictEqual([Error: Attempting to sell more shares than owned.]);
+    const got = sample.returnSymbolShare('RBLX');
+    expect(got).toStrictEqual("Symbol does not exist");
 });
 test('Test ownedSymbols ------- success' , () => {
     const sample = new stockPortfolio();
@@ -97,11 +96,8 @@ test('Test ownedSymbols ------- success' , () => {
 test('Test preventing too many shares' , () => {
     const sample = new stockPortfolio();
     sample.hashMap.set('RBLX', 100);
-    const t = () => {
-        throw new ShareSellException();
+    const got = () => {
+        sample.sale('RBLX',120);
     };
-    expect(t).toThrow(ShareSellException);
-    const got = sample.returnSymbolShare('RBLX');
-    expect(t).toThrow(ShareSellException);
-    expect(got).toStrictEqual(['RBLX, 100']);
+    expect(got).toThrowError("Attempting to sell more shares than owned.");
 });
