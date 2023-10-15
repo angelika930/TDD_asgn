@@ -29,7 +29,6 @@ import ShareSaleException from './ShareSaleException.js';
 //     expect(got).toBe(expected);
 // });
 
-//ASK HOW TO TEST INITIALIZATION OF CLASS OBJECT
 // test('Test creation of class object', () => {
 //     dict = dict()
 //     let sample = new stockPortfolio(dict, shares)
